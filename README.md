@@ -35,7 +35,7 @@ REST APIs → [services-hub-mcp] → MCP Tools → Claude Desktop / AI Agents / 
 
 ## Getting Started
 
-> To start the API exposed in the example code, run the FakeCarApiServer class.
+> To start the APIs exposed in the example code, run the `FakeCarApiServer` and `FakeEmployeeApiServer` classes.
 
 ## License
 

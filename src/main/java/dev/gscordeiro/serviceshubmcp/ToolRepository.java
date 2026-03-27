@@ -23,6 +23,17 @@ public class ToolRepository {
                           "required": ["id"]
                         }
                         """
+                ),
+                new ToolDefinition(
+                        "list_employees",
+                        "List all employees with their name, role, and department.",
+                        "http://localhost:8081/employees",
+                        "GET",
+                        """
+                        {
+                          "type": "object"
+                        }
+                        """
                 )
         );
     }

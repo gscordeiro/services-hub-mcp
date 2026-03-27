@@ -1,5 +1,8 @@
 package dev.gscordeiro.serviceshubmcp;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -7,9 +10,13 @@ import java.net.http.HttpResponse;
 import java.util.Map;
 
 public class RestToolExecutor {
+
+    Logger logger = LoggerFactory.getLogger(RestToolExecutor.class);
     private final HttpClient httpClient = HttpClient.newHttpClient();
 
     public Object execute(ToolDefinition def, Map<String, Object> args) {
+
+        logger.info("Executing tool: {}", def.name());
 
         validateRequired(def, args);
 
@@ -39,7 +46,9 @@ public class RestToolExecutor {
     }
 
     private void validateRequired(ToolDefinition def, Map<String, Object> args) {
-        // versão simples (pode evoluir para JSON Schema real depois)
+
+        logger.debug("Validating required parameters for tool: {}", def.name());
+
         if (def.jsonSchema().contains("\"required\"")) {
             if (def.jsonSchema().contains("\"id\"") && !args.containsKey("id")) {
                 throw new IllegalArgumentException("Missing required parameter: id");
@@ -48,6 +57,9 @@ public class RestToolExecutor {
     }
 
     private String buildUrl(String endpoint, Map<String, Object> args) {
+
+        logger.debug("Building URL for tool: {}", endpoint);
+
         String url = endpoint;
 
         for (var entry : args.entrySet()) {

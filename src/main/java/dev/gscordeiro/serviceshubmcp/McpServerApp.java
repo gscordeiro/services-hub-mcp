@@ -31,10 +31,14 @@ public class McpServerApp {
 
         for (ToolDefinition def : repository.findAll()) {
 
+            logger.debug("Processing tool: {}", def.name());
+
             McpSchema.JsonSchema schema;
             try {
+                logger.debug("Parsing tool schema for: {} -> schema: {}", def.name(), def.jsonSchema());
                 schema = jsonMapper.readValue(def.jsonSchema(), McpSchema.JsonSchema.class);
             } catch (Exception e) {
+                logger.error("Error parsing tool schema: {} -> schema: {}", def.name(), def.jsonSchema(), e);
                 throw new RuntimeException("Error parsing tool schema: " + def.name(), e);
             }
 
