@@ -48,7 +48,7 @@ public class McpServerApp {
                             .description(def.description())
                             .inputSchema(schema)
                             .build())
-                    .callHandler((exchange, request) -> {
+                    .callHandler((_, request) -> {
 
                         Map<String, Object> params = request.arguments();
 
@@ -67,10 +67,7 @@ public class McpServerApp {
         McpSyncServer syncServer = McpServer.sync(transportProvider)
                 .serverInfo("service-hub-mcp", "0.0.1")
                 .capabilities(McpSchema.ServerCapabilities.builder()
-//                        .resources(false, true)  // Resource support: subscribe=false, listChanged=true
                         .tools(true)             // Enable tool support with list changes
-//                        .prompts(true)           // Enable prompt support with list changes
-//                        .completions()           // Enable completions support
                         .logging()               // Enable logging support
                         .build())
                 .tools(tools)
